@@ -142,7 +142,7 @@ module.exports = class NN {
 
     // 觀察學習結果是否都正確
     test(pat) {
-      return this.numbersToStr(this.update(pat), 0);
+      return this.update(pat);
     }
 
     makeArray(n, fill) {

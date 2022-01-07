@@ -9,6 +9,5 @@ module.exports = class {
     this.trainNlp = require(fuct+'trainNlp.js');
     this.NeuralNet = require(fuct+'NeuralNet.js');
     this.Msg = require(fuct+'Msg.js');
-    
   }
 }
