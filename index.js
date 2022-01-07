@@ -87,7 +87,9 @@ client.on('message', async msg => {
   if(!isready) return;
   if (msg.author.id != "823885929830940682") return;
   if (!msg.content.startsWith(setting.prefix)) return;
-  console.log("new msg!")
+
+  console.log("new msg!");
+  
   let cmd = msg.content.replace(setting.prefix, "")
   if (cmd.startsWith("train")) {
     let str = cmd.replace('train', "");

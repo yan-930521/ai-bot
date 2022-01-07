@@ -7,7 +7,7 @@ module.exports = {
   "repeat":[],
   "tags":{
     "#now":function (){
-      return Date.now;
+      return Date.now();
     }
   },
   "eventResponder":{
