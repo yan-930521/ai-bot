@@ -15,9 +15,12 @@ const client = new Discord.Client();
 
 client.login(process.env.token);
 
-const setting = require("./setting.json");
-const data = require('./data.json');
-const config = require('./config.js');
+const setting = require("./Data/setting.json"); // 系統上的設定
+const data = require('./Data/data.json'); // 初始資料
+const data_brain = require('./Data/brain.json'); // 初始資料
+const grammar = require('./Data/grammar.json'); // 替代詞
+const config = require('./config.js'); // 功能集
+
 const ctl = require('./encapsulate.js')
 const Control = new ctl();
 var Mood;
@@ -26,23 +29,28 @@ var Brain
 
 var Msgs = {};
 var isready = false;
-client.on('ready', async() => {
+client.on('ready', async () => {
   console.clear();
   console.log(client.user.tag + " link start!");
   Mood = await Control.createNlp('mood.nlp');
   Event = await Control.createNlp('event.nlp');
   Brain = new Control.NeuralNet();
-  // Brain.init(2, 5, 1)
+  Brain.init(2, 5, 1)
+  Brain.train(data_brain, 500, 0.5, 0.1);
+
   isready = true;
   console.log("Control is ready!")
 });
 
 client.on('message', async msg => {
   try {
-    if(!isready) return;
-    console.log("new msg!")
+    if (!isready) return;
+    if (msg.content.startsWith(setting.prefix)) return;
+    if (msg.author.bot) return;
+
     // 抓出重複的訊息
-    let auth = Msgs[msg.author.id]
+
+    let auth = Msgs[msg.author.id];
     if (auth) {
       let msgData = Msgs[msg.author.id][msg.content];
       if (msgData) {
@@ -55,16 +63,14 @@ client.on('message', async msg => {
         return;
       }
     } else {
-      Msgs[msg.author.id] = {}
+      Msgs[msg.author.id] = {};
     }
 
     Msgs[msg.author.id][msg.content] = new Control.Msg();
 
-    setTimeout(() => { 
+    setTimeout(() => {
       delete Msgs[msg.author.id][msg.content];
     }, setting['time_to_forget']);
-
-    /*
 
     // 判別情感
     let mood = Control.moodExtractor(Mood, msg.content);
@@ -72,10 +78,10 @@ client.on('message', async msg => {
     // 事件提取
     let event = Control.eventExtractor(Event, msg.content);
 
-    let action = Control.actionPredictor(Brain, config, mood, event);
-    Control.act(Control, config, action, event, mood, msg)
+    // 語法決定
+    let action = Control.actionPredictor(Brain, data, mood, event);
 
-    */
+    //Control.act(Control, data, action, event, mood, msg.content);
   } catch (err) {
     console.error(err);
   }
@@ -84,34 +90,31 @@ client.on('message', async msg => {
 
 
 client.on('message', async msg => {
-  if(!isready) return;
+  if (!isready) return;
   if (msg.author.id != "823885929830940682") return;
+  if (msg.author.bot) return;
   if (!msg.content.startsWith(setting.prefix)) return;
 
-  console.log("new msg!");
-  
   let cmd = msg.content.replace(setting.prefix, "")
   if (cmd.startsWith("train")) {
     let str = cmd.replace('train', "");
     let mood = str.split(' ')[0];
     let event = str.split(' ')[1];
-    // 過濾打錯的字
-    Mood = await Control.trainNlp(Mood, config, mood, str);
-    Event = await Control.trainNlp(Event, config, event, str);
+
+    Mood = await Control.trainNlp(Mood,  data, type, mood, str);
+    Event = await Control.trainNlp(Event, data, type, event, str);
     return;
   }
-  if (cmd.startsWith("mood")) {
-    let str = cmd.replace('train', "");
-    let mood = str.split(' ')[0];
-    // 過濾打錯的字
-    Mood = await Control.trainNlp(Mood, config, mood, str);
-    return;
-  }
-  if (cmd.startsWith("event")) {
-    let str = cmd.replace('train', "");
-    let event = str.split(' ')[0];
-    // 過濾打錯的字
-    Event = await Control.trainNlp(Event, config, event, str);
+  if (cmd.startsWith("list")) {
+    let str = "```\n";
+    for(let d in data){
+      str += `< ${d} >\n`;
+      for(let i in data[d]) {
+        str += ` ${data[d][i].num}. ${i}\n`;
+      }
+    }
+    str += "```";
+    msg.channel.send(str);
     return;
   }
 });

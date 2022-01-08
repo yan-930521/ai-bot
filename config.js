@@ -1,17 +1,12 @@
 module.exports = {
   "actionGetter":{
   },
-  "moods":{},
-  "events":{},
-  "actions":{},
+  "actions":[
+  ],
   "repeat":[],
-  "tags":{
-    "#now":function (){
+  "funt":{
+    "&Now":function () {
       return Date.now();
     }
-  },
-  "eventResponder":{
-  },
-  "moodResponder":{
-  },
+  }
 }

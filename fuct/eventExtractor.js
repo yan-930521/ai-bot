@@ -1,7 +1,7 @@
 module.exports = async (Event, content) => {
   try {
-    let event = await Event.process('zh', content);
-    console.log(content + "\nevent: " + event);
+    var event = await Event.process('zh', content);
+    console.log(content + "\nevent: " + event.intent);
   } catch(err) {
     console.error(err);
   } finally {
