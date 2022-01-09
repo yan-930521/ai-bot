@@ -2,8 +2,6 @@
 still adjusting
 ## note
 - a!train \[ mood ] \[ event ] \[ sentence ]
-- a!mood \[ mood ] \[ sentence ]
-- a!event \[ event ] \[ sentence ]
 
 - 全部行數
 > git ls-files | xargs cat | wc -l
