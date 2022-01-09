@@ -73,13 +73,13 @@ client.on('message', async msg => {
     }, setting['time_to_forget']);
 
     // 判別情感
-    let mood = Control.moodExtractor(Mood, msg.content);
+    let mood = await Control.moodExtractor(Mood, msg.content);
 
     // 事件提取
-    let event = Control.eventExtractor(Event, msg.content);
+    let event = await Control.eventExtractor(Event, msg.content);
 
     // 語法決定
-    let action = Control.actionPredictor(Brain, data, mood, event);
+    //let action = Control.actionPredictor(Brain, data, mood, event);
 
     //Control.act(Control, data, action, event, mood, msg.content);
   } catch (err) {
@@ -95,14 +95,16 @@ client.on('message', async msg => {
   if (msg.author.bot) return;
   if (!msg.content.startsWith(setting.prefix)) return;
 
-  let cmd = msg.content.replace(setting.prefix, "")
+  let cmd = msg.content.replace(setting.prefix, "").trim().split(' ')[0]
   if (cmd.startsWith("train")) {
     let str = cmd.replace('train', "");
     let mood = str.split(' ')[0];
     let event = str.split(' ')[1];
 
-    Mood = await Control.trainNlp(Mood,  data, type, mood, str);
-    Event = await Control.trainNlp(Event, data, type, event, str);
+    Mood = Control.trainNlp(Mood,  data, "mood", mood, str);
+    await Mood.train();
+    Event = Control.trainNlp(Event, data, "event", event, str);
+    await Event.train();
     return;
   }
   if (cmd.startsWith("list")) {
@@ -115,6 +117,13 @@ client.on('message', async msg => {
     }
     str += "```";
     msg.channel.send(str);
+    return;
+  }
+  if (cmd.startsWith("testMood")) {
+    await msg.react(setting.msg_to_react);
+    let str = msg.content.replace(setting.prefix, "").replace(cmd, "").trim();
+    let mood = await Control.moodExtractor(Mood, str);
+    msg.channel.send("```" + JSON.stringify(mood, null, 2) + "```");
     return;
   }
 });

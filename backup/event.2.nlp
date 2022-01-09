@@ -1,0 +1,84 @@
+{
+  "settings": {
+    "languages": [
+      "zh"
+    ],
+    "nlu": {
+      "useNoneFeature": false
+    },
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": false,
+    "autoSave": false,
+    "modelFileName": "event.nlp",
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager",
+      "useNoneFeature": false
+    },
+    "locales": [
+      "zh"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "zh": {
+        "settings": {
+          "locale": "zh",
+          "useNoneFeature": false,
+          "trainByDomain": false,
+          "tag": "domain-manager-zh",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {},
+        "intentDict": {},
+        "sentences": [],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "zh",
+              "tag": "nlu-zh",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": []
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

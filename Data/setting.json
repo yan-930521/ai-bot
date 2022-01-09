@@ -1,4 +1,5 @@
 {
   "prefix":"a!",
-  "time_to_forget":300000
+  "time_to_forget":300000,
+  "msg_to_react":"✅"
 }
