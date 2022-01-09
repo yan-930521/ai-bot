@@ -2,9 +2,9 @@
   "settings": {
     "tag": "nlp",
     "threshold": 0.5,
-    "autoLoad": true,
-    "autoSave": true,
-    "modelFileName": "model.nlp",
+    "autoLoad": false,
+    "autoSave": false,
+    "modelFileName": "mood.nlp",
     "calculateSentiment": true,
     "languages": [
       "zh"

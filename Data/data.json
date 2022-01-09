@@ -23,6 +23,78 @@
     "鄙視": {
       "num": 5,
       "sentences": []
+    },
+    "好奇": {
+      "num": 6,
+      "sentences": []
+    },
+    "羨慕": {
+      "num": 7,
+      "sentences": []
+    },
+    "驚訝": {
+      "num": 8,
+      "sentences": []
+    },
+    "欽佩": {
+      "num": 9,
+      "sentences": []
+    },
+    "崇拜": {
+      "num": 10,
+      "sentences": []
+    },
+    "欣賞": {
+      "num": 11,
+      "sentences": []
+    },
+    "焦慮": {
+      "num": 12,
+      "sentences": []
+    },
+    "敬畏": {
+      "num": 13,
+      "sentences": []
+    },
+    "無聊": {
+      "num": 14,
+      "sentences": []
+    },
+    "鎮定": {
+      "num": 15,
+      "sentences": []
+    },
+    "困惑": {
+      "num": 16,
+      "sentences": []
+    },
+    "恐懼": {
+      "num": 17,
+      "sentences": []
+    },
+    "痛苦": {
+      "num": 18,
+      "sentences": []
+    },
+    "興奮": {
+      "num": 19,
+      "sentences": []
+    },
+    "滿足": {
+      "num": 20,
+      "sentences": []
+    },
+    "內疚": {
+      "num": 21,
+      "sentences": []
+    },
+    "驕傲": {
+      "num": 22,
+      "sentences": []
+    },
+    "失望": {
+      "num": 23,
+      "sentences": []
     }
   },
   "event": {
